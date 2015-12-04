@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Fluid", "Fluid\Fluid.vcxproj", "{7B30DE08-3C13-4C1B-A075-63B54F696D39}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project1", "Project1\Project1.vcxproj", "{5F9FD537-C277-49F0-9AEA-88D13F5EC8C8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -35,16 +33,6 @@ Global
 		{7B30DE08-3C13-4C1B-A075-63B54F696D39}.Release|x86.ActiveCfg = Release|Win32
 		{7B30DE08-3C13-4C1B-A075-63B54F696D39}.Release|x86.Build.0 = Release|Win32
 		{7B30DE08-3C13-4C1B-A075-63B54F696D39}.Release|x86.Deploy.0 = Release|Win32
-		{5F9FD537-C277-49F0-9AEA-88D13F5EC8C8}.Debug|ARM.ActiveCfg = Debug|Win32
-		{5F9FD537-C277-49F0-9AEA-88D13F5EC8C8}.Debug|x64.ActiveCfg = Debug|x64
-		{5F9FD537-C277-49F0-9AEA-88D13F5EC8C8}.Debug|x64.Build.0 = Debug|x64
-		{5F9FD537-C277-49F0-9AEA-88D13F5EC8C8}.Debug|x86.ActiveCfg = Debug|Win32
-		{5F9FD537-C277-49F0-9AEA-88D13F5EC8C8}.Debug|x86.Build.0 = Debug|Win32
-		{5F9FD537-C277-49F0-9AEA-88D13F5EC8C8}.Release|ARM.ActiveCfg = Release|Win32
-		{5F9FD537-C277-49F0-9AEA-88D13F5EC8C8}.Release|x64.ActiveCfg = Release|x64
-		{5F9FD537-C277-49F0-9AEA-88D13F5EC8C8}.Release|x64.Build.0 = Release|x64
-		{5F9FD537-C277-49F0-9AEA-88D13F5EC8C8}.Release|x86.ActiveCfg = Release|Win32
-		{5F9FD537-C277-49F0-9AEA-88D13F5EC8C8}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
