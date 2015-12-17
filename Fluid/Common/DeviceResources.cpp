@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 #include "DeviceResources.h"
+#define NOMINMAX
 #include <algorithm>
 #include "DirectXHelper.h"
 
@@ -218,8 +219,8 @@ void DX::DeviceResources::CreateWindowSizeDependentResources()
 	m_outputSize.Height = DX::ConvertDipsToPixels(m_logicalSize.Height, m_dpi);
 	
 	// Prevent zero size DirectX content from being created.
-	m_outputSize.Width = std::max(m_outputSize.Width, 1.0f);
-	m_outputSize.Height = std::max(m_outputSize.Height, 1.0f);
+	m_outputSize.Width = (std::max)(m_outputSize.Width, 1.0f);
+	m_outputSize.Height = (std::max)(m_outputSize.Height, 1.0f);
 
 	// The width and height of the swap chain must be based on the window's
 	// natively-oriented width and height. If the window is not in the native

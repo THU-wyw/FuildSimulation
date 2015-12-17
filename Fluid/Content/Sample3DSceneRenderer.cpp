@@ -69,6 +69,8 @@ void Sample3DSceneRenderer::CreateWindowSizeDependentResources()
 // Called once per frame, rotates the cube and calculates the model and view matrices.
 void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
 {
+	if (!m_loadingComplete)
+		return;
 	if (!m_tracking)
 	{
 		// Convert degrees to radians, then convert seconds to rotation angle
