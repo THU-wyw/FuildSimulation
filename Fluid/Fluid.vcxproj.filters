@@ -69,6 +69,7 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Sph\ParticleGrid.cpp" />
     <ClCompile Include="Sph\ParticleSystem.cpp" />
+    <ClCompile Include="SurfaceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -90,6 +91,8 @@
     <ClInclude Include="Lib\xx_amp_algorithms_impl_inl.h" />
     <ClInclude Include="Lib\xx_amp_stl_algorithms_impl.h" />
     <ClInclude Include="Lib\xx_amp_stl_algorithms_impl_inl.h" />
+    <ClInclude Include="SurfaceGenerator.h" />
+    <ClInclude Include="Content\MarchingCubesRes.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
@@ -101,5 +104,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Fluid_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Content\ModelVertexShader.hlsl" />
+    <FxCompile Include="Content\ModelPixelShader.hlsl" />
   </ItemGroup>
 </Project>

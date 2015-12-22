@@ -18,6 +18,15 @@ namespace Fluid
             return VALUE * (KERNEL2 - r2) * (KERNEL2 - r2) * (KERNEL2 - r2);
         }
 
+		inline float Calculate(DirectX::XMFLOAT3 rfi, DirectX::XMFLOAT3 rfj)
+		{
+			DirectX::XMVECTOR ri, rj;
+			ri = DirectX::XMLoadFloat3(&rfi);
+			rj = DirectX::XMLoadFloat3(&rfj);
+			float r2 = DirectX::XMVectorGetX(DirectX::XMVector3LengthSq(DirectX::XMVectorSubtract(ri, rj)));
+			return VALUE * (KERNEL2 - r2) * (KERNEL2 - r2) * (KERNEL2 - r2);
+		}
+
         inline Concurrency::graphics::float_3 CalculateGrad(
             Concurrency::graphics::float_3 ri,
             Concurrency::graphics::float_3 rj) const restrict(amp)

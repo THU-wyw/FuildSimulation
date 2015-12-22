@@ -16,4 +16,38 @@ namespace Fluid
 		DirectX::XMFLOAT3 pos;
 		DirectX::XMFLOAT3 color;
 	};
+
+	struct mVertex
+	{
+		DirectX::XMFLOAT3 pos;
+		DirectX::XMFLOAT2 tex;
+		DirectX::XMFLOAT3 normal;
+	};
+
+	struct VertexConstants
+	{
+		DirectX::XMMATRIX MVP;
+		DirectX::XMMATRIX World;
+	};
+
+	struct Light
+	{
+		Light()
+		{
+			ZeroMemory(this, sizeof(Light));
+		}
+		DirectX::XMFLOAT3 pos;
+		float range;
+		DirectX::XMFLOAT3 dir;
+		float cone;
+		DirectX::XMFLOAT3 att;
+		float pad2;
+		DirectX::XMFLOAT4 ambient;
+		DirectX::XMFLOAT4 diffuse;
+	};
+
+	struct cbPerFrame
+	{
+		Light  light;
+	};
 }

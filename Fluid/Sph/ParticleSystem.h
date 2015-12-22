@@ -12,6 +12,7 @@
 
 namespace Fluid
 {
+	class SurfaceGenerator;
     class ParticleSystem
     {
     public:
@@ -36,6 +37,8 @@ namespace Fluid
         inline Concurrency::array<int>& NeighborIndice() { return *m_neighbor_indice; }
         inline Concurrency::array<Concurrency::graphics::float_3>& ColorGrad() { return *m_color_grad; }
         inline Concurrency::array<float>& ColorLplc() { return *m_color_lplc; }
+
+		friend class SurfaceGenerator;
     private:
         template<typename KernelFunction>
         class DensityFunction : public KernelFunction
