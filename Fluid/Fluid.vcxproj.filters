@@ -62,37 +62,88 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
       <Filter>Assets</Filter>
     </Image>
+    <Filter Include="Sph">
+      <UniqueIdentifier>{d907eb8f-c7a9-4f5d-b265-0b999d23ed20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib">
+      <UniqueIdentifier>{0ff88977-0b7f-4899-8a39-239d9c78b3e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Surface">
+      <UniqueIdentifier>{d7e86b4d-2761-475d-ad8b-7738ace36ac7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="FluidMain.cpp" />
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Sph\ParticleGrid.cpp" />
-    <ClCompile Include="Sph\ParticleSystem.cpp" />
-    <ClCompile Include="SurfaceGenerator.cpp" />
+    <ClCompile Include="Sph\ParticleGrid.cpp">
+      <Filter>Sph</Filter>
+    </ClCompile>
+    <ClCompile Include="Sph\ParticleSystem.cpp">
+      <Filter>Sph</Filter>
+    </ClCompile>
+    <ClCompile Include="SurfaceGenerator.cpp">
+      <Filter>Surface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="FluidMain.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Sph\Particle.h" />
-    <ClInclude Include="Sph\ParticleGrid.h" />
-    <ClInclude Include="Sph\ParticleSystem.h" />
-    <ClInclude Include="Sph\AMPMathExtend.h" />
-    <ClInclude Include="Sph\AMPAlgorithmExtend.h" />
-    <ClInclude Include="Sph\KernelFuntions.h" />
-    <ClInclude Include="Lib\amp_algorithms.h" />
-    <ClInclude Include="Lib\amp_algorithms_direct3d.h" />
-    <ClInclude Include="Lib\amp_indexable_view.h" />
-    <ClInclude Include="Lib\amp_iterators.h" />
-    <ClInclude Include="Lib\amp_stl_algorithms.h" />
-    <ClInclude Include="Lib\xx_amp_algorithms_direct3d_impl.h" />
-    <ClInclude Include="Lib\xx_amp_algorithms_impl.h" />
-    <ClInclude Include="Lib\xx_amp_algorithms_impl_inl.h" />
-    <ClInclude Include="Lib\xx_amp_stl_algorithms_impl.h" />
-    <ClInclude Include="Lib\xx_amp_stl_algorithms_impl_inl.h" />
-    <ClInclude Include="SurfaceGenerator.h" />
-    <ClInclude Include="Content\MarchingCubesRes.h" />
+    <ClInclude Include="Lib\amp_algorithms.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\amp_indexable_view.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\amp_algorithms_direct3d.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\amp_iterators.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\amp_stl_algorithms.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\xx_amp_stl_algorithms_impl_inl.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\xx_amp_stl_algorithms_impl.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\xx_amp_algorithms_impl_inl.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\xx_amp_algorithms_impl.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\xx_amp_algorithms_direct3d_impl.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Sph\AMPAlgorithmExtend.h">
+      <Filter>Sph</Filter>
+    </ClInclude>
+    <ClInclude Include="Sph\AMPMathExtend.h">
+      <Filter>Sph</Filter>
+    </ClInclude>
+    <ClInclude Include="Sph\KernelFuntions.h">
+      <Filter>Sph</Filter>
+    </ClInclude>
+    <ClInclude Include="Sph\ParticleGrid.h">
+      <Filter>Sph</Filter>
+    </ClInclude>
+    <ClInclude Include="Sph\ParticleSystem.h">
+      <Filter>Sph</Filter>
+    </ClInclude>
+    <ClInclude Include="Sph\Particle.h">
+      <Filter>Sph</Filter>
+    </ClInclude>
+    <ClInclude Include="SurfaceGenerator.h">
+      <Filter>Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="Content\MarchingCubesRes.h">
+      <Filter>Surface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
