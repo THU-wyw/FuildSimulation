@@ -9,7 +9,7 @@
 #define EFFECTS_H
 #include "..\pch.h"
 #include "..\Common\DeviceResources.h"
-#include "FX11\inc\d3dx11effect.h"
+#include "d3dx11effect.h"
 #include "..\Common\d3dUtil.h"
 #include "..\Common\LightHelper.h"
 #include <string>

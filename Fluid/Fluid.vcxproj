@@ -106,9 +106,21 @@
   <PropertyGroup>
     <PackageCertificateKeyFile>Fluid_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <IncludePath>$(SolutionDir)Effects11\inc;$(SolutionDir)DirectXTK\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)DirectXTK\Bin\Desktop_2015_Win10\Win32\Release;$(SolutionDir)Effects11\Bin\Desktop_2015\Win32\Release;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)Effects11\Inc;$(SolutionDir)DirectXTK\Inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Effects11\Bin\Windows10\x64\Release;$(SolutionDir)DirectXTK\Bin\Windows10\x64\Release;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)Effects11\Inc;$(SolutionDir)DirectXTK\Inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Effects11\Bin\Windows10\x64\Debug;$(SolutionDir)DirectXTK\Bin\Windows10\x64\Debug;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <Link>
-      <AdditionalDependencies>d2d1.lib; d3d11.lib; dxgi.lib; windowscodecs.lib; dwrite.lib; %(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>DirectXTK.lib;Effects11.lib;WindowsApp.lib;d2d1.lib;d3d11.lib;dxgi.lib;windowscodecs.lib;dwrite.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories); $(VCInstallDir)\lib\store\arm; $(VCInstallDir)\lib\arm</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>
@@ -133,6 +145,12 @@
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <FxCompile>
+      <ShaderType>Effect</ShaderType>
+    </FxCompile>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+    </FxCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Link>
@@ -276,10 +294,6 @@
     <None Include="Fluid_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Content\ModelPixelShader.hlsl" />
-    <FxCompile Include="Content\ModelVertexShader.hlsl" />
-    <FxCompile Include="Content\SamplePixelShader.hlsl" />
-    <FxCompile Include="Content\SampleVertexShader.hlsl" />
     <FxCompile Include="External\CubeMap\FX\Basic.fx" />
     <FxCompile Include="External\CubeMap\FX\LightHelper.fx" />
     <FxCompile Include="External\CubeMap\FX\Sky.fx" />
@@ -290,10 +304,4 @@
     <Import Project="$(VSINSTALLDIR)\Common7\IDE\Extensions\Microsoft\VsGraphics\MeshContentTask.targets" />
     <Import Project="$(VSINSTALLDIR)\Common7\IDE\Extensions\Microsoft\VsGraphics\ShaderGraphContentTask.targets" />
   </ImportGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\fx11_desktop_2015.2015.11.30.1\build\native\fx11_desktop_2015.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\fx11_desktop_2015.2015.11.30.1\build\native\fx11_desktop_2015.props'))" />
-  </Target>
 </Project>

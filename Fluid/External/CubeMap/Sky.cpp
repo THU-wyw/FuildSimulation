@@ -5,7 +5,7 @@
 #include "Sky.h"
 #include "../Common/GeometryGenerator.h"
 #include "../Common/Camera.h"
-#include "DirectXTK/Inc/DDSTextureLoader.h"
+#include "DDSTextureLoader.h"
 #include "Vertex.h"
 #include "Effects.h"
 

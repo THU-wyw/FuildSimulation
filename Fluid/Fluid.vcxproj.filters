@@ -65,62 +65,156 @@
     <Filter Include="Surface">
       <UniqueIdentifier>{d7e86b4d-2761-475d-ad8b-7738ace36ac7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="External">
+      <UniqueIdentifier>{5ddca97e-00b6-4538-8555-75377b75dc5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\CubeMap">
+      <UniqueIdentifier>{352f1724-a666-4ccf-9aae-f8985eea9f1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\Common">
+      <UniqueIdentifier>{8eac9f8c-60d5-49e9-8cb1-7af9c8558b63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\CubeMap\FX">
+      <UniqueIdentifier>{0f062b7d-48ab-4f39-ad26-ca05942c7c10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\CubeMap\Textures">
+      <UniqueIdentifier>{e72e53ec-2d28-4d99-8a2c-ee3c601f1f58}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="FluidMain.cpp" />
     <ClCompile Include="pch.cpp" />
-
-    <ClCompile Include="Sph\ParticleGrid.cpp" />
-    <ClCompile Include="Sph\ParticleSystem.cpp" />
-    <ClCompile Include="SurfaceGenerator.cpp" />
-    <ClCompile Include="External\CubeMap\Sky.cpp" />
-    <ClCompile Include="External\CubeMap\Effects.cpp" />
-    <ClCompile Include="External\CubeMap\Vertex.cpp" />
-    <ClCompile Include="External\Common\Camera.cpp" />
-    <ClCompile Include="External\Common\GeometryGenerator.cpp" />
-    <ClCompile Include="External\Common\MathHelper.cpp" />
-    <ClCompile Include="External\Common\LightHelper.cpp" />
+    <ClCompile Include="Sph\ParticleGrid.cpp">
+      <Filter>Sph</Filter>
+    </ClCompile>
+    <ClCompile Include="Sph\ParticleSystem.cpp">
+      <Filter>Sph</Filter>
+    </ClCompile>
+    <ClCompile Include="External\CubeMap\Effects.cpp">
+      <Filter>External\CubeMap</Filter>
+    </ClCompile>
+    <ClCompile Include="External\CubeMap\Sky.cpp">
+      <Filter>External\CubeMap</Filter>
+    </ClCompile>
+    <ClCompile Include="External\CubeMap\Vertex.cpp">
+      <Filter>External\CubeMap</Filter>
+    </ClCompile>
+    <ClCompile Include="External\Common\Camera.cpp">
+      <Filter>External\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="External\Common\MathHelper.cpp">
+      <Filter>External\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="External\Common\LightHelper.cpp">
+      <Filter>External\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="External\Common\GeometryGenerator.cpp">
+      <Filter>External\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="SurfaceGenerator.cpp">
+      <Filter>Surface</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="FluidMain.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Sph\Particle.h" />
-    <ClInclude Include="Sph\ParticleGrid.h" />
-    <ClInclude Include="Sph\ParticleSystem.h" />
-    <ClInclude Include="Sph\AMPMathExtend.h" />
-    <ClInclude Include="Sph\AMPAlgorithmExtend.h" />
-    <ClInclude Include="Sph\KernelFuntions.h" />
-    <ClInclude Include="Lib\amp_algorithms.h" />
-    <ClInclude Include="Lib\amp_algorithms_direct3d.h" />
-    <ClInclude Include="Lib\amp_indexable_view.h" />
-    <ClInclude Include="Lib\amp_iterators.h" />
-    <ClInclude Include="Lib\amp_stl_algorithms.h" />
-    <ClInclude Include="Lib\xx_amp_algorithms_direct3d_impl.h" />
-    <ClInclude Include="Lib\xx_amp_algorithms_impl.h" />
-    <ClInclude Include="Lib\xx_amp_algorithms_impl_inl.h" />
-    <ClInclude Include="Lib\xx_amp_stl_algorithms_impl.h" />
-    <ClInclude Include="Lib\xx_amp_stl_algorithms_impl_inl.h" />
-    <ClInclude Include="SurfaceGenerator.h" />
-    <ClInclude Include="Content\MarchingCubesRes.h" />
-    <ClInclude Include="External\CubeMap\Sky.h" />
-    <ClInclude Include="External\CubeMap\Effects.h" />
-    <ClInclude Include="External\CubeMap\Vertex.h" />
-    <ClInclude Include="External\Common\Camera.h" />
-    <ClInclude Include="External\Common\d3dUtil.h" />
-    <ClInclude Include="External\Common\GeometryGenerator.h" />
-    <ClInclude Include="External\Common\MathHelper.h" />
-    <ClInclude Include="External\Common\LightHelper.h" />
+    <ClInclude Include="Lib\xx_amp_algorithms_direct3d_impl.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\xx_amp_algorithms_impl.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\xx_amp_algorithms_impl_inl.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\xx_amp_stl_algorithms_impl.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\xx_amp_stl_algorithms_impl_inl.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\amp_stl_algorithms.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\amp_iterators.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\amp_indexable_view.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\amp_algorithms_direct3d.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Lib\amp_algorithms.h">
+      <Filter>Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="Sph\AMPAlgorithmExtend.h">
+      <Filter>Sph</Filter>
+    </ClInclude>
+    <ClInclude Include="Sph\AMPMathExtend.h">
+      <Filter>Sph</Filter>
+    </ClInclude>
+    <ClInclude Include="Sph\KernelFuntions.h">
+      <Filter>Sph</Filter>
+    </ClInclude>
+    <ClInclude Include="Sph\Particle.h">
+      <Filter>Sph</Filter>
+    </ClInclude>
+    <ClInclude Include="Sph\ParticleGrid.h">
+      <Filter>Sph</Filter>
+    </ClInclude>
+    <ClInclude Include="Sph\ParticleSystem.h">
+      <Filter>Sph</Filter>
+    </ClInclude>
+    <ClInclude Include="External\CubeMap\Effects.h">
+      <Filter>External\CubeMap</Filter>
+    </ClInclude>
+    <ClInclude Include="External\CubeMap\Sky.h">
+      <Filter>External\CubeMap</Filter>
+    </ClInclude>
+    <ClInclude Include="External\CubeMap\Vertex.h">
+      <Filter>External\CubeMap</Filter>
+    </ClInclude>
+    <ClInclude Include="External\Common\Camera.h">
+      <Filter>External\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="External\Common\d3dUtil.h">
+      <Filter>External\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="External\Common\MathHelper.h">
+      <Filter>External\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="External\Common\LightHelper.h">
+      <Filter>External\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="External\Common\GeometryGenerator.h">
+      <Filter>External\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SurfaceGenerator.h">
+      <Filter>Surface</Filter>
+    </ClInclude>
+    <ClInclude Include="Content\MarchingCubesRes.h">
+      <Filter>Surface</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="External\CubeMap\Textures\desertcube1024.dds" />
-    <Image Include="External\CubeMap\Textures\grasscube1024.dds" />
-    <Image Include="External\CubeMap\Textures\snowcube1024.dds" />
-    <Image Include="External\CubeMap\Textures\sunsetcube1024.dds" />
+    <Image Include="External\CubeMap\Textures\desertcube1024.dds">
+      <Filter>External\CubeMap\Textures</Filter>
+    </Image>
+    <Image Include="External\CubeMap\Textures\grasscube1024.dds">
+      <Filter>External\CubeMap\Textures</Filter>
+    </Image>
+    <Image Include="External\CubeMap\Textures\snowcube1024.dds">
+      <Filter>External\CubeMap\Textures</Filter>
+    </Image>
+    <Image Include="External\CubeMap\Textures\sunsetcube1024.dds">
+      <Filter>External\CubeMap\Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -129,12 +223,14 @@
     <None Include="Fluid_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="External\CubeMap\FX\Basic.fx" />
-    <FxCompile Include="External\CubeMap\FX\LightHelper.fx" />
-    <FxCompile Include="External\CubeMap\FX\Sky.fx" />
-    <FxCompile Include="Content\SampleVertexShader.hlsl" />
-    <FxCompile Include="Content\SamplePixelShader.hlsl" />
-    <FxCompile Include="Content\ModelVertexShader.hlsl" />
-    <FxCompile Include="Content\ModelPixelShader.hlsl" />
+    <FxCompile Include="External\CubeMap\FX\Basic.fx">
+      <Filter>External\CubeMap\FX</Filter>
+    </FxCompile>
+    <FxCompile Include="External\CubeMap\FX\LightHelper.fx">
+      <Filter>External\CubeMap\FX</Filter>
+    </FxCompile>
+    <FxCompile Include="External\CubeMap\FX\Sky.fx">
+      <Filter>External\CubeMap\FX</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
