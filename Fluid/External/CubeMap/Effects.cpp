@@ -130,8 +130,8 @@ SkyEffect*   Effects::SkyFX   = 0;
 
 void Effects::InitAll(ID3D11Device* device)
 {
-	BasicFX = new BasicEffect(device, L"External/CubeMap/FX/Basic.fxo");
-	SkyFX   = new SkyEffect(device, L"External/CubeMap/FX/Sky.fxo");
+	BasicFX = new BasicEffect(device, L"Basic.cso");
+	SkyFX   = new SkyEffect(device, L"Sky.cso");
 }
 
 void Effects::DestroyAll()

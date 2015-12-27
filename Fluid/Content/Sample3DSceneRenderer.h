@@ -76,7 +76,7 @@ namespace Fluid
         std::vector<VertexPositionColor> m_points;
 		// Variables used with the rendering loop.
 		bool	m_loadingComplete;
-		bool    m_modelComplete = false;
+		bool    m_modelComplete = true;
 		float	m_degreesPerSecond;
 		bool	m_tracking;
 

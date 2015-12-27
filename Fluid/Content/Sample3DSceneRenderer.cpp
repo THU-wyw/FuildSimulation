@@ -16,18 +16,18 @@ using namespace Windows::Foundation;
 
 // Loads vertex and pixel shaders from files and instantiates the cube geometry.
 Sample3DSceneRenderer::Sample3DSceneRenderer(const std::shared_ptr<DX::DeviceResources>& deviceResources) :
-	m_loadingComplete(false),
+	m_loadingComplete(true),
 	m_degreesPerSecond(45),
 	m_indexCount(0),
 	m_tracking(false),
 	m_deviceResources(deviceResources),
     m_system(deviceResources->GetD3DDevice())
 {
-	CreateDeviceDependentResources();
+	// CreateDeviceDependentResources();
 	CreateWindowSizeDependentResources();
 	// LoadModel(L"fish.obj", model_indices, model_vertices);
 	m_surface.Init(&m_system);
-	InitModelShaders();
+	// InitModelShaders();
 	// init skybox
 	Effects::InitAll(m_deviceResources->GetD3DDevice());
 	InputLayouts::InitAll(m_deviceResources->GetD3DDevice());
@@ -35,6 +35,14 @@ Sample3DSceneRenderer::Sample3DSceneRenderer(const std::shared_ptr<DX::DeviceRes
 	// mCam.SetPosition(0.0f, 2.0f, -2.0f);
 	mCam.LookAt(XMFLOAT3(0.0f, 0.7f, -1.5f), XMFLOAT3(0.0f, -0.1f, 0.0f), XMFLOAT3(0.0f, 1.0f, 0.0f));
 	// BuildSkullGeometryBuffers();
+	m_system.InitParticles();
+	m_points.resize(m_system.Points().extent[0]);
+	std::transform(m_system.GetParticles().begin(),
+		m_system.GetParticles().end(),
+		m_points.begin(),
+		[](const Particle& p) -> VertexPositionColor {
+		return{ p.position,{ 1.0f, 1.0f, 1.0f } };
+	});
 }
 
 // Initializes view parameters when the window size changes.
@@ -121,7 +129,7 @@ void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
 	vinitData.pSysMem = &fluid_vertices[0];
 	HR(m_deviceResources->GetD3DDevice()->CreateBuffer(&vbd, &vinitData, &m_fluid_vertexBuffer));
 
-	mCam.RotateY(0.01);
+	// mCam.RotateY(0.01);
 	XMMATRIX world = XMMatrixScaling(1.0f, 1.0f, 1.0f);
 	world = XMMatrixMultiply(XMLoadFloat4x4(&m_constantBufferData.model), world);
 	XMMATRIX view = (XMLoadFloat4x4(&m_constantBufferData.view));
@@ -444,7 +452,7 @@ void Sample3DSceneRenderer::Render()
 	
 	mCam.UpdateViewMatrix();
 	mSky->Draw(context, mCam);
-	
+	/*
 	// Prepare the constant buffer to send it to the graphics device.
 	context->UpdateSubresource(
 		m_constantBuffer.Get(),
@@ -510,7 +518,7 @@ void Sample3DSceneRenderer::Render()
 	context->Draw(
 		m_points.size(),
 		0
-		);
+		);*/
 
 	RenderFluid();
 	
