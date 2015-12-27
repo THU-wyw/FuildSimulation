@@ -56,11 +56,21 @@
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
       <Filter>Assets</Filter>
     </Image>
+    <Filter Include="Sph">
+      <UniqueIdentifier>{d907eb8f-c7a9-4f5d-b265-0b999d23ed20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lib">
+      <UniqueIdentifier>{0ff88977-0b7f-4899-8a39-239d9c78b3e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Surface">
+      <UniqueIdentifier>{d7e86b4d-2761-475d-ad8b-7738ace36ac7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="FluidMain.cpp" />
     <ClCompile Include="pch.cpp" />
+
     <ClCompile Include="Sph\ParticleGrid.cpp" />
     <ClCompile Include="Sph\ParticleSystem.cpp" />
     <ClCompile Include="SurfaceGenerator.cpp" />
