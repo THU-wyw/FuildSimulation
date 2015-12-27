@@ -4,6 +4,11 @@
 #include <vector>
 #include <fstream>
 
+#include "External\CubeMap\Effects.h"
+#include "External\CubeMap\Vertex.h"
+#include "External\Common\MathHelper.h"
+// #include <Winuser.h>
+
 using namespace Fluid;
 
 using namespace DirectX;
@@ -23,6 +28,13 @@ Sample3DSceneRenderer::Sample3DSceneRenderer(const std::shared_ptr<DX::DeviceRes
 	// LoadModel(L"fish.obj", model_indices, model_vertices);
 	m_surface.Init(&m_system);
 	InitModelShaders();
+	// init skybox
+	Effects::InitAll(m_deviceResources->GetD3DDevice());
+	InputLayouts::InitAll(m_deviceResources->GetD3DDevice());
+	mSky = new Sky(m_deviceResources->GetD3DDevice(), L"External/CubeMap/Textures/grasscube1024.dds", 5000.0f);
+	// mCam.SetPosition(0.0f, 2.0f, -2.0f);
+	mCam.LookAt(XMFLOAT3(0.0f, 0.7f, -1.5f), XMFLOAT3(0.0f, -0.1f, 0.0f), XMFLOAT3(0.0f, 1.0f, 0.0f));
+	// BuildSkullGeometryBuffers();
 }
 
 // Initializes view parameters when the window size changes.
@@ -94,9 +106,23 @@ void Sample3DSceneRenderer::Update(DX::StepTimer const& timer)
         [](const Concurrency::graphics::float_3& p) -> VertexPositionColor {
         return{ { p.x, p.y, p.z }, { 1.0f, 1.0f, 1.0f } };
     });
-	m_surface.Generate(model_vertices);
-	InitModelVertices();
-	XMMATRIX world = XMMatrixScaling(1.0f, 1.0f, 1.0f);;
+	// m_surface.Generate(model_vertices);
+	// InitModelVertices();
+	m_surface.Generate(fluid_vertices);
+
+	int vcount = fluid_vertices.size();
+	D3D11_BUFFER_DESC vbd;
+	vbd.Usage = D3D11_USAGE_IMMUTABLE;
+	vbd.ByteWidth = sizeof(Vertex::Basic32) * vcount;
+	vbd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vbd.CPUAccessFlags = 0;
+	vbd.MiscFlags = 0;
+	D3D11_SUBRESOURCE_DATA vinitData;
+	vinitData.pSysMem = &fluid_vertices[0];
+	HR(m_deviceResources->GetD3DDevice()->CreateBuffer(&vbd, &vinitData, &m_fluid_vertexBuffer));
+
+	mCam.RotateY(0.01);
+	XMMATRIX world = XMMatrixScaling(1.0f, 1.0f, 1.0f);
 	world = XMMatrixMultiply(XMLoadFloat4x4(&m_constantBufferData.model), world);
 	XMMATRIX view = (XMLoadFloat4x4(&m_constantBufferData.view));
 	XMMATRIX proj = (XMLoadFloat4x4(&m_constantBufferData.projection));
@@ -415,6 +441,10 @@ void Sample3DSceneRenderer::Render()
 
 	auto context = m_deviceResources->GetD3DDeviceContext();
 
+	
+	mCam.UpdateViewMatrix();
+	mSky->Draw(context, mCam);
+	
 	// Prepare the constant buffer to send it to the graphics device.
 	context->UpdateSubresource(
 		m_constantBuffer.Get(),
@@ -482,11 +512,7 @@ void Sample3DSceneRenderer::Render()
 		0
 		);
 
-	try {
-		RenderModel();
-	}
-	catch (...) {
-	}
+	RenderFluid();
 	
 }
 
@@ -659,4 +685,187 @@ void Sample3DSceneRenderer::ReleaseDeviceDependentResources()
 	m_constantBuffer.Reset();
 	m_vertexBuffer.Reset();
 	//m_indexBuffer.Reset();
+}
+
+/*
+void Sample3DSceneRenderer::BuildSkullGeometryBuffers()
+{
+	std::ifstream fin("skull.txt");
+
+	if (!fin)
+	{
+		// MessageBox(0, L"Models/skull.txt not found.", 0, 0);
+		return;
+	}
+
+	UINT vcount = 0;
+	UINT tcount = 0;
+	std::string ignore;
+
+	fin >> ignore >> vcount;
+	fin >> ignore >> tcount;
+	fin >> ignore >> ignore >> ignore >> ignore;
+
+	std::vector<Vertex::Basic32> vertices(vcount);
+	for (UINT i = 0; i < vcount; ++i)
+	{
+		fin >> vertices[i].Pos.x >> vertices[i].Pos.y >> vertices[i].Pos.z;
+		fin >> vertices[i].Normal.x >> vertices[i].Normal.y >> vertices[i].Normal.z;
+	}
+
+	fin >> ignore;
+	fin >> ignore;
+	fin >> ignore;
+
+	mSkullIndexCount = 3 * tcount;
+	std::vector<UINT> indices(mSkullIndexCount);
+	for (UINT i = 0; i < tcount; ++i)
+	{
+		fin >> indices[i * 3 + 0] >> indices[i * 3 + 1] >> indices[i * 3 + 2];
+	}
+
+	fin.close();
+
+	D3D11_BUFFER_DESC vbd;
+	vbd.Usage = D3D11_USAGE_IMMUTABLE;
+	vbd.ByteWidth = sizeof(Vertex::Basic32) * vcount;
+	vbd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vbd.CPUAccessFlags = 0;
+	vbd.MiscFlags = 0;
+	D3D11_SUBRESOURCE_DATA vinitData;
+	vinitData.pSysMem = &vertices[0];
+	HR(m_deviceResources->GetD3DDevice()->CreateBuffer(&vbd, &vinitData, &mSkullVB));
+
+	//
+	// Pack the indices of all the meshes into one index buffer.
+	//
+
+	D3D11_BUFFER_DESC ibd;
+	ibd.Usage = D3D11_USAGE_IMMUTABLE;
+	ibd.ByteWidth = sizeof(UINT) * mSkullIndexCount;
+	ibd.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	ibd.CPUAccessFlags = 0;
+	ibd.MiscFlags = 0;
+	D3D11_SUBRESOURCE_DATA iinitData;
+	iinitData.pSysMem = &indices[0];
+	HR(m_deviceResources->GetD3DDevice()->CreateBuffer(&ibd, &iinitData, &mSkullIB));
+}
+*/
+
+void Sample3DSceneRenderer::RenderFluid()
+{
+	auto md3dImmediateContext = m_deviceResources->GetD3DDeviceContext();
+	// md3dImmediateContext->ClearDepthStencilView(mDepthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+
+	md3dImmediateContext->IASetInputLayout(InputLayouts::Basic32);
+	md3dImmediateContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	UINT stride = sizeof(Vertex::Basic32);
+	UINT offset = 0;
+
+	mCam.UpdateViewMatrix();
+
+	XMMATRIX view = mCam.View();
+	XMMATRIX proj = mCam.Proj();
+	XMMATRIX viewProj = mCam.ViewProj();
+
+	float blendFactor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+
+	// Set per frame constants.
+	Effects::BasicFX->SetDirLights(mDirLights);
+	Effects::BasicFX->SetEyePosW(mCam.GetPosition());
+	Effects::BasicFX->SetCubeMap(mSky->CubeMapSRV());
+
+	// Figure out which technique to use.  Skull does not have texture coordinates,
+	// so we need a separate technique for it, and not every surface is reflective,
+	// so don't pay for cubemap look up.
+
+	ID3DX11EffectTechnique* activeTexTech = Effects::BasicFX->Light1TexTech;
+	ID3DX11EffectTechnique* activeReflectTech = Effects::BasicFX->Light1TexReflectTech;
+	ID3DX11EffectTechnique* activeSkullTech = Effects::BasicFX->Light1ReflectTech;
+	switch (mLightCount)
+	{
+	case 1:
+		activeTexTech = Effects::BasicFX->Light1TexTech;
+		activeReflectTech = Effects::BasicFX->Light1TexReflectTech;
+		activeSkullTech = Effects::BasicFX->Light1ReflectTech;
+		break;
+	case 2:
+		activeTexTech = Effects::BasicFX->Light2TexTech;
+		activeReflectTech = Effects::BasicFX->Light2TexReflectTech;
+		activeSkullTech = Effects::BasicFX->Light2ReflectTech;
+		break;
+	case 3:
+		activeTexTech = Effects::BasicFX->Light3TexTech;
+		activeReflectTech = Effects::BasicFX->Light3TexReflectTech;
+		activeSkullTech = Effects::BasicFX->Light3ReflectTech;
+		break;
+	}
+
+	XMMATRIX world;
+	XMMATRIX worldInvTranspose;
+	XMMATRIX worldViewProj;
+
+	D3DX11_TECHNIQUE_DESC techDesc;
+	activeSkullTech->GetDesc(&techDesc);
+	for (UINT p = 0; p < techDesc.Passes; ++p)
+	{
+		// Draw the skull.
+
+		md3dImmediateContext->IASetVertexBuffers(0, 1, &m_fluid_vertexBuffer, &stride, &offset);
+		// md3dImmediateContext->IASetIndexBuffer(mSkullIB, DXGI_FORMAT_R32_UINT, 0);
+
+		//XMMATRIX skullScale = XMMatrixScaling(1.0f, 1.0f, 1.0f);
+		//XMMATRIX skullOffset = XMMatrixTranslation(0.0f, 1.0f, 0.0f);
+		//XMFLOAT4X4 mSkullWorld;
+		//XMStoreFloat4x4(&mSkullWorld, XMMatrixMultiply(skullScale, skullOffset));
+		//world = XMLoadFloat4x4(&mSkullWorld);
+
+		//XMMATRIX world = XMMatrixScaling(1.0f, 1.0f, 1.0f);
+		//world = XMMatrixMultiply(XMLoadFloat4x4(&m_constantBufferData.model), world);
+		//XMMATRIX view = (XMLoadFloat4x4(&m_constantBufferData.view));
+		//XMMATRIX proj = (XMLoadFloat4x4(&m_constantBufferData.projection));
+		//m_vertexConstants.MVP = XMMatrixMultiply(proj, XMMatrixMultiply(view, world));
+		//m_vertexConstants.World = world;
+
+		XMMATRIX world = XMMatrixScaling(0.5f, 0.5f, 0.5f);
+		// world = XMMatrixMultiply(XMLoadFloat4x4(&m_constantBufferData.model), world);
+		
+		worldInvTranspose = MathHelper::InverseTranspose(world);
+		worldViewProj = world*view*proj;
+
+		Material mSkullMat;
+		mSkullMat.Ambient = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
+		mSkullMat.Diffuse = XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
+		mSkullMat.Specular = XMFLOAT4(0.8f, 0.8f, 0.8f, 16.0f);
+		mSkullMat.Reflect = XMFLOAT4(0.5f, 0.5f, 0.5f, 1.0f);
+
+		Effects::BasicFX->SetWorld(world);
+		Effects::BasicFX->SetWorldInvTranspose(worldInvTranspose);
+		Effects::BasicFX->SetWorldViewProj(worldViewProj);
+		Effects::BasicFX->SetMaterial(mSkullMat);
+
+		activeSkullTech->GetPassByIndex(p)->Apply(0, md3dImmediateContext);
+		md3dImmediateContext->Draw(fluid_vertices.size(), 0);
+	}
+
+	// mSky->Draw(md3dImmediateContext, mCam);
+
+	// restore default states, as the SkyFX changes them in the effect file.
+	md3dImmediateContext->RSSetState(0);
+	md3dImmediateContext->OMSetDepthStencilState(0, 0);
+}
+
+void Sample3DSceneRenderer::InitFluidVertices()
+{
+	int vcount = fluid_vertices.size();
+	D3D11_BUFFER_DESC vbd;
+	vbd.Usage = D3D11_USAGE_IMMUTABLE;
+	vbd.ByteWidth = sizeof(Vertex::Basic32) * vcount;
+	vbd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vbd.CPUAccessFlags = 0;
+	vbd.MiscFlags = 0;
+	D3D11_SUBRESOURCE_DATA vinitData;
+	vinitData.pSysMem = &fluid_vertices[0];
+	HR(m_deviceResources->GetD3DDevice()->CreateBuffer(&vbd, &vinitData, &m_fluid_vertexBuffer));
 }

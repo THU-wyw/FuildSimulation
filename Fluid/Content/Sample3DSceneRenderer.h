@@ -5,6 +5,10 @@
 #include "..\Common\StepTimer.h"
 #include "../Sph/ParticleSystem.h"
 #include "SurfaceGenerator.h"
+#include "External\CubeMap\Sky.h"
+#include "External\Common\Camera.h"
+#include "External\Common\LightHelper.h"
+#include "External\CubeMap\Vertex.h"
 
 namespace Fluid
 {
@@ -75,6 +79,22 @@ namespace Fluid
 		bool    m_modelComplete = false;
 		float	m_degreesPerSecond;
 		bool	m_tracking;
+
+		// skybox
+		Sky *mSky;
+		ID3D11Buffer* mSkySphereVB;
+		ID3D11Buffer* mSkySphereIB;
+		// skull
+		// void BuildSkullGeometryBuffers();
+		// ID3D11Buffer*		mSkullVB;
+		// ID3D11Buffer *mSkullIB;
+		Camera mCam;
+		DirectionalLight mDirLights[3];
+		UINT mLightCount = 3;
+		void RenderFluid();
+		std::vector<Vertex::Basic32> fluid_vertices;
+		void InitFluidVertices();
+		ID3D11Buffer*		m_fluid_vertexBuffer;
 	};
 }
 

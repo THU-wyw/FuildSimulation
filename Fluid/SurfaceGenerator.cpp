@@ -14,7 +14,7 @@ SurfaceGenerator::SurfaceGenerator()
 {
 }
 
-void SurfaceGenerator::Generate(std::vector<mVertex> &vertices)
+void SurfaceGenerator::Generate(std::vector<Vertex::Basic32> &vertices)
 {
 	vertices.clear();
 	// m_system->GenerateNeighborTable();
@@ -119,7 +119,7 @@ void SurfaceGenerator::Generate(std::vector<mVertex> &vertices)
 		for (int j = 0, n = numVertsTable[verts]; j < n; j++) {
 			unsigned int edge_index = triTable[verts][j];
 			XMUINT2 pair_index = idxTable[edge_index];
-			mVertex vert;
+			Vertex::Basic32 vert;
 			// point position
 			XMUINT3 e1 = cellPos[pair_index.x], e2 = cellPos[pair_index.y];
 			XMVECTOR ev1 = XMLoadUInt3(&e1), ev2 = XMLoadUInt3(&e2);
@@ -131,8 +131,8 @@ void SurfaceGenerator::Generate(std::vector<mVertex> &vertices)
 			XMVECTOR n2 = XMLoadFloat3(&grid_normal[ni2]);
 			XMVECTOR normal = (n1 + n2) / 2.0f;
 			normal = XMVector3Normalize(normal);
-			XMStoreFloat3(&vert.pos, pos);
-			XMStoreFloat3(&vert.normal, normal);
+			XMStoreFloat3(&vert.Pos, pos);
+			XMStoreFloat3(&vert.Normal, normal);
 			vertices.push_back(vert);
 		}
 	}

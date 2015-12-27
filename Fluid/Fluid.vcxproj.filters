@@ -70,6 +70,13 @@
     <ClCompile Include="Sph\ParticleGrid.cpp" />
     <ClCompile Include="Sph\ParticleSystem.cpp" />
     <ClCompile Include="SurfaceGenerator.cpp" />
+    <ClCompile Include="External\CubeMap\Sky.cpp" />
+    <ClCompile Include="External\CubeMap\Effects.cpp" />
+    <ClCompile Include="External\CubeMap\Vertex.cpp" />
+    <ClCompile Include="External\Common\Camera.cpp" />
+    <ClCompile Include="External\Common\GeometryGenerator.cpp" />
+    <ClCompile Include="External\Common\MathHelper.cpp" />
+    <ClCompile Include="External\Common\LightHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -93,17 +100,31 @@
     <ClInclude Include="Lib\xx_amp_stl_algorithms_impl_inl.h" />
     <ClInclude Include="SurfaceGenerator.h" />
     <ClInclude Include="Content\MarchingCubesRes.h" />
+    <ClInclude Include="External\CubeMap\Sky.h" />
+    <ClInclude Include="External\CubeMap\Effects.h" />
+    <ClInclude Include="External\CubeMap\Vertex.h" />
+    <ClInclude Include="External\Common\Camera.h" />
+    <ClInclude Include="External\Common\d3dUtil.h" />
+    <ClInclude Include="External\Common\GeometryGenerator.h" />
+    <ClInclude Include="External\Common\MathHelper.h" />
+    <ClInclude Include="External\Common\LightHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\StoreLogo.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="External\CubeMap\Textures\desertcube1024.dds" />
+    <Image Include="External\CubeMap\Textures\grasscube1024.dds" />
+    <Image Include="External\CubeMap\Textures\snowcube1024.dds" />
+    <Image Include="External\CubeMap\Textures\sunsetcube1024.dds" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fluid_TemporaryKey.pfx" />
+    <None Include="External\CubeMap\FX\Basic.fxo" />
+    <None Include="External\CubeMap\FX\Sky.fxo" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Content\ModelVertexShader.hlsl" />
