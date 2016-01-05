@@ -1,9 +1,8 @@
-
-
 cbuffer VertexConstants
 {
 	float4x4 WVP;
 	float4x4 World;
+	float4x4 WV;
 };
 
 struct VS_INPUT
@@ -17,6 +16,7 @@ struct VS_OUTPUT
 {
 	float4 Pos : SV_POSITION;
 	float4 worldPos : POSITION;
+	float4 wvPos : POSITION1;
 	float2 TexCoord : TEXCOORD;
 	float3 normal : NORMAL;
 };
@@ -27,9 +27,9 @@ VS_OUTPUT main(VS_INPUT input)
 
 	output.Pos = mul(input.inPos, WVP);
 	output.worldPos = mul(input.inPos, World);
-
+	output.wvPos = mul(input.inPos, WV);
+	//output.normal = mul(input.normal, World);
 	output.normal = mul(input.normal, World);
-
 	output.TexCoord = input.inTexCoord;
 
 	return output;

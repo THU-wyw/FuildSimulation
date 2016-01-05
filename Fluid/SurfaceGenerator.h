@@ -2,7 +2,6 @@
 #include "Sph\ParticleSystem.h"
 #include "Sph\KernelFuntions.h"
 #include "Content\ShaderStructures.h"
-#include "External\CubeMap\Vertex.h"
 namespace Fluid
 {
 	class SurfaceGenerator
@@ -13,7 +12,7 @@ namespace Fluid
 			m_system = system; 
 			kernel = new Poly6Kernel(m_system->Kernel()); 
 		}
-		void Generate(std::vector<Vertex::Basic32> &vertices);
+		void Generate(std::vector<mVertex> &vertices);
 	private:
 		inline DirectX::XMFLOAT3 ConvertToDX(Concurrency::graphics::float_3 f3){
 			return DirectX::XMFLOAT3(f3.x, f3.y, f3.z);

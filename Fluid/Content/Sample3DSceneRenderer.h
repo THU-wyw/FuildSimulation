@@ -3,12 +3,8 @@
 #include "..\Common\DeviceResources.h"
 #include "ShaderStructures.h"
 #include "..\Common\StepTimer.h"
-#include "../Sph/ParticleSystem.h"
+#include "..\Sph\ParticleSystem.h"
 #include "SurfaceGenerator.h"
-#include "External\CubeMap\Sky.h"
-#include "External\Common\Camera.h"
-#include "External\Common\LightHelper.h"
-#include "External\CubeMap\Vertex.h"
 
 namespace Fluid
 {
@@ -28,7 +24,6 @@ namespace Fluid
 		void StopTracking();
 		bool IsTracking() { return m_tracking; }
 
-
 	private:
 		void Rotate(float radians);
 		void RenderModel();
@@ -37,6 +32,11 @@ namespace Fluid
 		void InitModelIndices();
 		void InitModelVertices();
 
+		void RenderEnvMap();
+		void RenderCaustic();
+		void InitEnvMapShaders();
+		void InitCausticTex();
+
 	private:
 		// Cached pointer to device resources.
 		std::shared_ptr<DX::DeviceResources> m_deviceResources;
@@ -44,11 +44,25 @@ namespace Fluid
 		// Direct3D resources for cube geometry.
 		Microsoft::WRL::ComPtr<ID3D11InputLayout>	m_inputLayout;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>		m_vertexBuffer;
+		
+
 		//Microsoft::WRL::ComPtr<ID3D11Buffer>		m_indexBuffer;
 		Microsoft::WRL::ComPtr<ID3D11VertexShader>	m_vertexShader;
 		Microsoft::WRL::ComPtr<ID3D11PixelShader>	m_pixelShader;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>		m_constantBuffer;
 
+		// envmap
+		Microsoft::WRL::ComPtr<ID3D11VertexShader>  m_envmap_vertexShader;
+		Microsoft::WRL::ComPtr<ID3D11PixelShader>   m_envmap_pixelShader;
+		Microsoft::WRL::ComPtr<ID3D11InputLayout>   m_envmap_layout;
+		Microsoft::WRL::ComPtr<ID3D11Buffer>		m_envmap_vertexCB;  //m_pCB
+		//Microsoft::WRL::ComPtr<ID3D11Buffer>		m_envmap_pixelCB;
+		Microsoft::WRL::ComPtr<ID3D11Buffer>		m_pVB;
+		Microsoft::WRL::ComPtr<ID3D11SamplerState>	m_envmap_samplerState;
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilState>	m_envmap_depthSS;
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_envMapSRV;
+
+		// model
 		Microsoft::WRL::ComPtr<ID3D11InputLayout>	m_model_layout;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>		m_model_vertexBuffer;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>		m_model_indexBuffer;
@@ -56,7 +70,13 @@ namespace Fluid
 		Microsoft::WRL::ComPtr<ID3D11PixelShader>	m_model_pixelShader;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>		m_model_vertexCB;
 		Microsoft::WRL::ComPtr<ID3D11Buffer>		m_model_pixelCB;
-		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> DSLessEqual;
+		Microsoft::WRL::ComPtr<ID3D11Texture2D>		m_model_caustic;
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_model_envmapSRV;
+		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_model_causticSRV;
+		Microsoft::WRL::ComPtr<ID3D11RenderTargetView>   m_model_causticRTV;
+		
+		Microsoft::WRL::ComPtr<ID3D11SamplerState>	m_model_samplerState;
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> m_model_depthSS;
 		Microsoft::WRL::ComPtr<ID3D11RasterizerState> CCWcullMode;
 		int m_model_indexCount;
 
@@ -76,25 +96,10 @@ namespace Fluid
         std::vector<VertexPositionColor> m_points;
 		// Variables used with the rendering loop.
 		bool	m_loadingComplete;
-		bool    m_modelComplete = true;
+		bool    m_modelComplete = false;
+		bool	m_envmapComplete = false;
 		float	m_degreesPerSecond;
 		bool	m_tracking;
-
-		// skybox
-		Sky *mSky;
-		ID3D11Buffer* mSkySphereVB;
-		ID3D11Buffer* mSkySphereIB;
-		// skull
-		// void BuildSkullGeometryBuffers();
-		// ID3D11Buffer*		mSkullVB;
-		// ID3D11Buffer *mSkullIB;
-		Camera mCam;
-		DirectionalLight mDirLights[3];
-		UINT mLightCount = 3;
-		void RenderFluid();
-		std::vector<Vertex::Basic32> fluid_vertices;
-		void InitFluidVertices();
-		ID3D11Buffer*		m_fluid_vertexBuffer;
 	};
 }
 

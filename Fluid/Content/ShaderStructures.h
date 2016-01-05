@@ -1,5 +1,9 @@
 ﻿#pragma once
 
+#include <d3d11.h>
+#include <DirectXMath.h>
+using namespace DirectX;
+
 namespace Fluid
 {
 	// Constant buffer used to send MVP matrices to the vertex shader.
@@ -26,8 +30,9 @@ namespace Fluid
 
 	struct VertexConstants
 	{
-		DirectX::XMMATRIX MVP;
+		DirectX::XMMATRIX WVP;
 		DirectX::XMMATRIX World;
+		DirectX::XMMATRIX WV;
 	};
 
 	struct Light
@@ -48,6 +53,11 @@ namespace Fluid
 
 	struct cbPerFrame
 	{
+		DirectX::XMMATRIX g_mViewProjection[2];
 		Light  light;
+	};
+
+	struct cbPerFrame2 {
+		XMMATRIX	mWordViewProj;
 	};
 }
