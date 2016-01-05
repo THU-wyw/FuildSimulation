@@ -105,7 +105,7 @@ void Sample3DSceneRenderer::InitEnvMapShaders()
 
 void Sample3DSceneRenderer::RenderEnvMap()
 {
-	if (!m_modelComplete)
+	if (!m_envmapComplete)
 	{
 		return;
 	}
@@ -120,12 +120,22 @@ void Sample3DSceneRenderer::RenderEnvMap()
 	float fLowH = 1.0f + (1.0f / (float)wSize.Height);
 	XMFLOAT4* pVertices = new XMFLOAT4[6];
 
-	pVertices[0] = XMFLOAT4(fLowW, fLowH, 0.0f, 1.0f);
-	pVertices[1] = XMFLOAT4(fLowW, fHighH, 0.0f, 1.0f);
-	pVertices[2] = XMFLOAT4(fHighW, fLowH, 0.0f, 1.0f);
-	pVertices[3] = XMFLOAT4(fHighW, fHighH, 0.0f, 1.0f);
+	//pVertices[0] = XMFLOAT4(fLowW, fLowH, 0.0f, 1.0f);
+	//pVertices[1] = XMFLOAT4(fLowW, fHighH, 0.0f, 1.0f);
+	//pVertices[2] = XMFLOAT4(fHighW, fLowH, 0.0f, 1.0f);
+	//pVertices[3] = XMFLOAT4(fHighW, fHighH, 0.0f, 1.0f);
 	
-	UINT uiVertBufSize = 4 * sizeof(XMFLOAT4);
+	// triangle 1
+	pVertices[0] = XMFLOAT4(-1, -1, 0, 1.0f);
+	pVertices[1] = XMFLOAT4(1, 1, 0, 1.0f);
+	pVertices[2] = XMFLOAT4(-1, 1, 0, 1.0f);
+
+	// triangle 2
+	pVertices[3] = XMFLOAT4(-1, -1, 0, 1.0f);
+	pVertices[4] = XMFLOAT4(1, 1, 0, 1.0f);
+	pVertices[5] = XMFLOAT4(1, -1, 0, 1.0f);
+
+	UINT uiVertBufSize = 6 * sizeof(XMFLOAT4);
 	//Vertex Buffer
 	D3D11_BUFFER_DESC vbdesc;
 	vbdesc.ByteWidth = uiVertBufSize;
@@ -163,5 +173,5 @@ void Sample3DSceneRenderer::RenderEnvMap()
 	context->PSSetSamplers(0, 1, m_envmap_samplerState.GetAddressOf());
 	context->PSSetShaderResources(0, 1, m_envMapSRV.GetAddressOf());
 	context->OMSetDepthStencilState(m_envmap_depthSS.Get(), 0);
-	context->Draw(4, 0);
+	context->Draw(6, 0);
 }

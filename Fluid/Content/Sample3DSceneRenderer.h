@@ -23,6 +23,7 @@ namespace Fluid
 		void TrackingUpdate(float positionX);
 		void StopTracking();
 		bool IsTracking() { return m_tracking; }
+		void RenderEnvMap();
 
 	private:
 		void Rotate(float radians);
@@ -32,7 +33,7 @@ namespace Fluid
 		void InitModelIndices();
 		void InitModelVertices();
 
-		void RenderEnvMap();
+		
 		void RenderCaustic();
 		void InitEnvMapShaders();
 		void InitCausticTex();

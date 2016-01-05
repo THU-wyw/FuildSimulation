@@ -92,10 +92,10 @@ float4 main(VS_OUTPUT input) : SV_TARGET
 
 	float3 envc = 0;
 	float sp = saturate(dot(refl, lightToPixelVec));
-	sp = pow(sp, 400.0f) * 4.0f;
+	//sp = pow(sp, 400.0f) * 4.0f;
+	sp = pow(sp, 50.0f) * 0.8f;
+	
 	envc += sp;
-
-	float3 finalAmbient = cReflect * light.ambient.xyz;
 
 	float3 fc = envc + cReflect + cRefract * bodycolor;
 	return float4(fc, 1.0f);

@@ -248,17 +248,19 @@ void Sample3DSceneRenderer::Render()
 		0
 		);
 
-	try {
-		RenderModel();
-	}
-	catch (...) {
-	}
 
 	try {
 		RenderEnvMap();
 	}
 	catch (...) {
 	}
+
+	try {
+		RenderModel();
+	}
+	catch (...) {
+	}
+
 }
 
 void Sample3DSceneRenderer::CreateDeviceDependentResources()
