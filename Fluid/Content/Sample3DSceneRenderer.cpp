@@ -31,7 +31,7 @@ Sample3DSceneRenderer::Sample3DSceneRenderer(const std::shared_ptr<DX::DeviceRes
 	// init skybox
 	Effects::InitAll(m_deviceResources->GetD3DDevice());
 	InputLayouts::InitAll(m_deviceResources->GetD3DDevice());
-	mSky = new Sky(m_deviceResources->GetD3DDevice(), L"External/CubeMap/Textures/grasscube1024.dds", 5000.0f);
+	mSky = new Sky(m_deviceResources->GetD3DDevice(), L"External/CubeMap/Textures/snowcube1024.dds", 5000.0f);
 	// mCam.SetPosition(0.0f, 2.0f, -2.0f);
 	mCam.LookAt(XMFLOAT3(0.0f, 0.7f, -1.5f), XMFLOAT3(0.0f, -0.1f, 0.0f), XMFLOAT3(0.0f, 1.0f, 0.0f));
 	// BuildSkullGeometryBuffers();
@@ -836,7 +836,7 @@ void Sample3DSceneRenderer::RenderFluid()
 		//m_vertexConstants.MVP = XMMatrixMultiply(proj, XMMatrixMultiply(view, world));
 		//m_vertexConstants.World = world;
 
-		XMMATRIX world = XMMatrixScaling(0.5f, 0.5f, 0.5f);
+		XMMATRIX world = XMMatrixScaling(0.7f, 0.7f, 0.7f);
 		// world = XMMatrixMultiply(XMLoadFloat4x4(&m_constantBufferData.model), world);
 		
 		worldInvTranspose = MathHelper::InverseTranspose(world);
