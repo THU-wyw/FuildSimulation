@@ -233,7 +233,8 @@ void Sample3DSceneRenderer::InitModelShaders()
 		dssDesc.DepthEnable = true;
 		dssDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 		//dssDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
-		dssDesc.DepthFunc = D3D11_COMPARISON_ALWAYS;
+		//dssDesc.DepthFunc = D3D11_COMPARISON_ALWAYS;
+		dssDesc.DepthFunc = D3D11_COMPARISON_GREATER_EQUAL;
 		mDevice->CreateDepthStencilState(&dssDesc, &m_model_depthSS);
 
 		// sampler state

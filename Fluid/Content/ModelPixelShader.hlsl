@@ -66,7 +66,7 @@ float3 SampleWorld(float3 v, float3 r)
 	return c;
 }
 
-const static float3 bodycolor = { 1, 1, 1 };
+const static float3 bodycolor = { 0.7, 0.7, 0.7 };
 const static float4 eyePos = {0.0f, 0.7f, 1.5f, 0.0f};
 const static float4 PlaneColor = { 0.3f, 0.5f, 1.0f, 1 };
 
@@ -77,7 +77,7 @@ float4 main(VS_OUTPUT input) : SV_TARGET
 	//clip(eyePos.w - 0.5f);
 
 	float3 norm = normalize(input.normal);
-	float3 lightToPixelVec = light.pos - input.worldPos.xyz;
+	float3 lightToPixelVec = normalize(light.pos - input.worldPos.xyz);
 	float3 p_pos = input.worldPos.xyz;
 
 	float3 eyedir = normalize(p_pos - eyePos.xyz);
@@ -93,11 +93,11 @@ float4 main(VS_OUTPUT input) : SV_TARGET
 	float3 envc = 0;
 	float sp = saturate(dot(refl, lightToPixelVec));
 	//sp = pow(sp, 400.0f) * 4.0f;
-	sp = pow(sp, 50.0f) * 0.8f;
+	sp = pow(sp, 400) * 0.4f;
 	
 	envc += sp;
 
-	float3 fc = envc + cReflect + cRefract * bodycolor;
+	float3 fc = envc + saturate(cReflect + cRefract * bodycolor);
 	return float4(fc, 1.0f);
 
 	//input.normal = normalize(input.normal);
